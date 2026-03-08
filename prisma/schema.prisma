@@ -1,0 +1,64 @@
+// Prisma schema for Limi AI Dynamic Layout Engine
+// Datasource: Supabase PostgreSQL with connection pooling
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // In Prisma v7 connection URLs are no longer declared here.
+  // The driver adapter is passed to PrismaClient in src/lib/prisma.ts
+  // and the migrate connection is configured in prisma.config.ts.
+  provider = "postgresql"
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum ModuleType {
+  LIGHT
+  SENSOR
+  FURNITURE
+}
+
+enum ModuleStatus {
+  ON
+  OFF
+}
+
+// ─── Models ──────────────────────────────────────────────────────────────────
+
+model Room {
+  id        String   @id @default(cuid())
+  name      String
+  width     Float    // floor plan canvas width in logical pixels
+  height    Float    // floor plan canvas height in logical pixels
+  modules   Module[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("rooms")
+}
+
+model Module {
+  id         String       @id @default(cuid())
+  uuid       String       @unique // hardware MAC address — pattern XX:XX:XX:XX:XX:XX
+  name       String
+  type       ModuleType
+  x          Float        // x position on floor plan canvas
+  y          Float        // y position on floor plan canvas
+  width      Float        // rendered width in logical pixels
+  height     Float        // rendered height in logical pixels
+  rotation   Float        @default(0)
+  status     ModuleStatus @default(ON)
+  powerLimit Int?         // max wattage; must be a positive integer when set
+  properties Json         @default("{}") // type-specific data (intensity, sensorValue, etc.)
+  metadata   Json         @default("{}") // custom user-defined JSON
+  roomId     String
+  room       Room         @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  @@index([roomId])
+  @@index([type])
+  @@map("modules")
+}

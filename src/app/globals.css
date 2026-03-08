@@ -82,38 +82,51 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* ── Limi AI Dark Luxury Theme ─────────────────────────────────────────────── */
+/* Deep near-black backgrounds with rich gold/amber accents.                   */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.87 0.00 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.371 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Backgrounds */
+  --background: oklch(0.08 0.008 285); /* #0a0a0f deep near-black        */
+  --foreground: oklch(0.94 0.008 85); /* warm near-white                */
+  --card: oklch(0.12 0.008 285); /* elevated card surface          */
+  --card-foreground: oklch(0.94 0.008 85);
+  --popover: oklch(0.14 0.008 285);
+  --popover-foreground: oklch(0.94 0.008 85);
+
+  /* Gold/amber primary — the "Limi AI" accent colour */
+  --primary: oklch(0.82 0.16 75); /* rich gold  hsl≈45°,100%,60%   */
+  --primary-foreground: oklch(0.1 0.01 30); /* dark text on gold buttons      */
+
+  /* Surfaces */
+  --secondary: oklch(0.18 0.008 285);
+  --secondary-foreground: oklch(0.94 0.008 85);
+  --muted: oklch(0.16 0.008 285);
+  --muted-foreground: oklch(0.6 0.01 85);
+  --accent: oklch(0.22 0.01 75); /* subtle gold-tinted accent      */
+  --accent-foreground: oklch(0.94 0.008 85);
+
+  /* Feedback */
+  --destructive: oklch(0.65 0.22 25);
+  --border: oklch(0.82 0.06 75 / 18%); /* gold-tinted border             */
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.82 0.16 75); /* gold focus ring                */
+
+  /* Charts */
+  --chart-1: oklch(0.82 0.16 75);
+  --chart-2: oklch(0.7 0.14 60);
+  --chart-3: oklch(0.58 0.12 50);
+  --chart-4: oklch(0.46 0.1 40);
+  --chart-5: oklch(0.36 0.08 30);
+
+  /* Sidebar */
+  --sidebar: oklch(0.11 0.008 285);
+  --sidebar-foreground: oklch(0.94 0.008 85);
+  --sidebar-primary: oklch(0.82 0.16 75);
+  --sidebar-primary-foreground: oklch(0.1 0.01 30);
+  --sidebar-accent: oklch(0.18 0.008 285);
+  --sidebar-accent-foreground: oklch(0.94 0.008 85);
+  --sidebar-border: oklch(0.82 0.06 75 / 18%);
+  --sidebar-ring: oklch(0.82 0.16 75);
 }
 
 @layer base {
@@ -126,4 +139,23 @@
   html {
     @apply font-sans;
   }
+}
+
+/* ── Floor Plan Canvas ──────────────────────────────────────────────────────── */
+.floor-plan-grid {
+  background-image:
+    linear-gradient(oklch(1 0 0 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(1 0 0 / 4%) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── Gold glow utility (applied to light modules when ON) ──────────────────── */
+.module-gold-glow {
+  box-shadow: 0 0 16px 3px oklch(0.82 0.16 75 / 45%);
+}
+
+/* ── Module selection ring ─────────────────────────────────────────────────── */
+.module-selected {
+  outline: 2px solid oklch(0.82 0.16 75);
+  outline-offset: 2px;
 }
