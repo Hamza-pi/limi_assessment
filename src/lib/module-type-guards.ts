@@ -3,7 +3,6 @@
 // enabling safe property access without casting throughout the codebase.
 
 import {
-  Lightbulb,
   Thermometer,
   Droplets,
   Activity,
