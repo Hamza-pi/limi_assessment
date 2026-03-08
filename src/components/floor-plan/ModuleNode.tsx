@@ -25,7 +25,7 @@ interface ModuleNodeProps {
 }
 
 function ModuleNodeInner({ id, room }: ModuleNodeProps) {
-  const module = useFloorPlanStore(selectModuleById(id));
+  const mod = useFloorPlanStore(selectModuleById(id));
   const selectedId = useFloorPlanStore((s) => s.selectedModuleId);
   const selectModule = useFloorPlanStore((s) => s.selectModule);
   const deselectModule = useFloorPlanStore((s) => s.deselectModule);
@@ -33,7 +33,11 @@ function ModuleNodeInner({ id, room }: ModuleNodeProps) {
   const isSelected = selectedId === id;
 
   const handleClick = useCallback(() => {
-    isSelected ? deselectModule() : selectModule(id);
+    if (isSelected) {
+      deselectModule();
+    } else {
+      selectModule(id);
+    }
   }, [id, isSelected, selectModule, deselectModule]);
 
   const handleKeyDown = useCallback(
@@ -46,29 +50,29 @@ function ModuleNodeInner({ id, room }: ModuleNodeProps) {
     [handleClick],
   );
 
-  if (!module) return null;
+  if (!mod) return null;
 
-  const positionStyle = getModuleStyle(module, room);
-  const isLight = isLightModule(module);
-  const isSensor = isSensorModule(module);
+  const positionStyle = getModuleStyle(mod, room);
+  const isLight = isLightModule(mod);
+  const isSensor = isSensorModule(mod);
 
   return (
     <div
       role="button"
       tabIndex={0}
-      aria-label={`${module.name} — ${module.type.toLowerCase()}`}
+      aria-label={`${mod.name} — ${mod.type.toLowerCase()}`}
       aria-pressed={isSelected}
       data-testid="module-node"
-      data-module-type={module.type}
+      data-module-type={mod.type}
       style={positionStyle}
       className={`group cursor-pointer rounded-lg transition-all duration-200 focus-visible:outline-2 focus-visible:outline-primary ${isSelected ? "module-selected z-10" : "z-0 hover:z-10"}`}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
     >
-      {isLight && <LightModuleNode module={module} />}
-      {isSensor && <SensorModuleNode module={module} />}
-      {!isLight && !isSensor && module.type === ModuleType.FURNITURE && (
-        <FurnitureModuleNode module={module as FurnitureModule} />
+      {isLight && <LightModuleNode module={mod} />}
+      {isSensor && <SensorModuleNode module={mod} />}
+      {!isLight && !isSensor && mod.type === ModuleType.FURNITURE && (
+        <FurnitureModuleNode module={mod as FurnitureModule} />
       )}
     </div>
   );

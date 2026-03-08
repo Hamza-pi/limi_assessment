@@ -13,7 +13,7 @@ import {
 } from "@/lib/schemas/module-form";
 import { useModuleActions } from "@/hooks/useModuleActions";
 import { ModuleType } from "@/lib/types";
-import type { Module, LightProperties, SensorProperties } from "@/lib/types";
+import type { Module, SensorProperties } from "@/lib/types";
 
 // ─── Default value derivation ─────────────────────────────────────────────────
 
